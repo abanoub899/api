@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//api phase 1
+Route::get("listEmployees",[ApiController::class,"listEmployees"]);
+Route::get("singleEmployee/{id}",[ApiController::class,"getSingleEmployee"]);
+Route::post("addEmployee",[ApiController::class,"createEmployee"]);
+Route::put("updateEmployee/{id}",[ApiController::class,"updateEmployee"]);
+Route::delete("deleteEmployee/{id}",[ApiController::class,"deleteEmployee"]);
+
+
+
