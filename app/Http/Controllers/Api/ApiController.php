@@ -54,15 +54,45 @@ return response()->json(['status'=>1,
 
 
     }
-     // update employee
+     // update employee put
      function updateEmployee( Request $request,$id){
+        if(Employee::where("id",$id)->exists()){
+$employee=Employee::find($id);
+$employee->name=!empty($request->name)?$request->name:$employee->name;
+$employee->email=!empty($request->email)?$request->email:$employee->email;
+$employee->phone=!empty($request->phone)?$request->phone:$employee->phone;
+$employee->gender=!empty($request->gender)?$request->gender:$employee->gender;
+$employee->age=!empty($request->age)?$request->age:$employee->age;
+$employee->save();
+return response()->json([
+    'status'=>1,
+    'message'=>'updated',
+    
+]);
+
+
+        }else{
+            return response()->json(['status'=>0,
+        'message'=>"not found"]);
+
+        }
         
 
     }
 // delete employee
 function deleteEmployee($id){
-        
+    if(Employee::where("id",$id)->exists()){
+$employee=Employee::find($id);
+$employee->delete();
+return response()->json(['status'=>1,
+'message'=>'message deleted']);
+    }else{
+        return response()->json(['status'=>0,
+        'message'=>"not found"]); 
+    }
 
 }
+
+
 
 }
